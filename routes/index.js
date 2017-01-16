@@ -1,13 +1,15 @@
 var express = require('express');
+var moment = require('moment');
 var router = express.Router();
 
 function unixToDate(timestamp) {
-  var a = new Date(timestamp * 1000);
+  //var a = new Date(timestamp * 1000);
   //console.log(a);
-  var rgx = /T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z/;
-  var newA = JSON.stringify(a);
+  //var rgx = /T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z/;
+  //var newA = JSON.stringify(a);
   //console.log(newA.replace(rgx, ""));
-  return newA.replace(rgx, "");
+  //return newA.replace(rgx, "");
+  return moment.unix(timestamp).format("YYYY-MM-DD");
 }
 
 /* GET home page. */
