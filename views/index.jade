@@ -6,9 +6,14 @@ block content
       .text-center
         h1 TimeStamp Microservice
         h2 Example Usage
-        p "https://timestamp-ms/herokuapp.com/01/15/2017"
-        | would output: 
-        | { "unix": 1484438400, "date": "01/15/2017"}
+        p "https://timestamp-ms/herokuapp.com<strong>/01/15/2017"</strong>
+        | <strong>would output</strong>: 
+        | { "unix": "1484438400", "naturalFormat": "2017-01-15"}
+        br
+        br
+        p "https://timestamp-ms.herokuapp.com<strong>/1484438400"</strong>
+        | <strong>would output</strong>:
+        | {"unix": "1484438400", naturalFormat: "2017-01-2015"}
         br
         br
         p Designed by: Kyle C R Fahey 

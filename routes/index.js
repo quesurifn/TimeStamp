@@ -3,11 +3,11 @@ var router = express.Router();
 
 function unixToDate(timestamp) {
   var a = new Date(timestamp * 1000);
-  var year = a.getFullYear();
-  var month = a.getFullMonth() + 1;
-  var date = a.getDate();
-  var time = date + "/" + month + "/" + year;
-  return time;
+  //console.log(a);
+  var rgx = /T(\d{2}):(\d{2}):(\d{2}).(\d{3})Z/;
+  var newA = JSON.stringify(a);
+  //console.log(newA.replace(rgx, ""));
+  return newA.replace(rgx, "");
 }
 
 /* GET home page. */
@@ -20,23 +20,26 @@ router.get('/:day/:month/:year', function(req, res) {
   var month = req.params.month;
   var year = req.params.year;
   console.log(day + month + year);
-
-  if ()  {// REVIEW: Make sure its a date
-
+  var d = new Date();
+  if (year <= d.getFullYear() && day <= 31 && month <= 12)  {
+    var resDate = new Date(year + "-" + month + "-" + day).getTime() / 1000;
+    console.log(resDate);
+    res.json({unix : resDate, naturalFormat : year + "-" + month + "-" + day });
   } else {
-    //if its a timestamp
+    res.json({ unix: null, naturalFormat : null});
   }
 
 });
 
-router.get(':unix', function(req, res) {
+router.get('/:unix', function(req, res) {
   var timestamp = req.params.unix;
-  var regex = new RegExp("\d{10}(\d{1,2})?");
+  var regex = new RegExp("\\d{10}");
   if (regex.test(timestamp)) {
     var date = unixToDate(timestamp);
-    res.json({ unix : timestamp, naturalLanguage : date }))
+    console.log(date);
+    res.json({ unix : timestamp, naturalFormat : date });
   } else {
-    res.json({ unix: null, naturalLanguage : null}))
+    res.json({ unix: null, naturalFormat : null});
   }
 });
 
